@@ -12,9 +12,15 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -31,6 +37,7 @@ public class Cachier extends javax.swing.JFrame {
 
         initComponents();
         table();
+        tablef();
     }
 
     public void table() {
@@ -125,7 +132,11 @@ public class Cachier extends javax.swing.JFrame {
         int c = b - a;
         reste.setText(Integer.toString(c));
     }
-
+ 
+    public void actulaiser(java.awt.event.ActionEvent evt){
+    importer();
+    total();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,9 +186,8 @@ public class Cachier extends javax.swing.JFrame {
         rp1 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         txtcash = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
+        labelreste = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         label = new javax.swing.JLabel();
         Label1 = new javax.swing.JLabel();
         reste = new java.awt.Label();
@@ -280,9 +290,9 @@ public class Cachier extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Revenu Pure   :");
+        jLabel11.setText("Prix Total       :");
 
-        jButton1.setText("Ajouter au vente");
+        jButton1.setText("Ajouter au ventes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -304,13 +314,8 @@ public class Cachier extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(374, 374, 374)
-                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(374, 374, 374)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -321,9 +326,9 @@ public class Cachier extends javax.swing.JFrame {
                         .addComponent(catrech, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtrech, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
+                        .addGap(36, 36, 36))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -332,11 +337,15 @@ public class Cachier extends javax.swing.JFrame {
                                 .addComponent(txtfactureajoute, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(89, 89, 89)
@@ -455,7 +464,7 @@ public class Cachier extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id", "num_facture", "code_produit", "reference", "prrix_vente", "stock_sortie", "subtotal"
+                "id", "num_facture", "code_produit", "reference", "prix_vente", "stock_sortie", "subtotal"
             }
         ) {
             Class[] types = new Class [] {
@@ -468,11 +477,11 @@ public class Cachier extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbl_facture);
 
-        jLabel13.setText("Total Revenu Pure        :");
+        jLabel13.setText("Total                             :");
 
         rp1.setText("0");
 
-        jLabel16.setText("Montant payer              :");
+        jLabel16.setText("Montant à payer           :");
 
         txtcash.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -480,26 +489,19 @@ public class Cachier extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setText("Le Reste                        :");
+        labelreste.setText(" Reste                            :");
 
-        jButton4.setText("Imprimer");
+        jButton4.setText("Imprimer Facture");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Annuler");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
         reste.setName(""); // NOI18N
         reste.setText("0");
 
-        jButton3.setText("Supprimer");
+        jButton3.setText("Supprimer la facture sélectionnée");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -511,45 +513,39 @@ public class Cachier extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(195, 195, 195)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtfacture, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(562, 562, 562)
                 .addComponent(Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(503, 503, 503)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(264, 264, 264)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelreste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
                         .addComponent(rp1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)))
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtcash, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(reste, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,14 +560,13 @@ public class Cachier extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfacture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtfacture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rp1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -581,19 +576,17 @@ public class Cachier extends javax.swing.JFrame {
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(labelreste, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                     .addComponent(reste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton4))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jButton4)
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         jButton7.setText("Actualiser");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                actualiser(evt);
             }
         });
 
@@ -721,10 +714,6 @@ public class Cachier extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtfactureActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void txtstocksortieKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtstocksortieKeyReleased
         subtotal();     }//GEN-LAST:event_txtstocksortieKeyReleased
 
@@ -733,7 +722,7 @@ public class Cachier extends javax.swing.JFrame {
                 || txtremise.getText().equals("") || txtprix.getText().equals("") || txtrangement.getText().equals("") || txtnouveau.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please fill the informations");
         } else if (txtfactureajoute.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Please provide a facture number");
+            JOptionPane.showMessageDialog(this, "Please provide a bill number");
         } else {
             String cols[] = {"num_facture", "code_produit", "reference", "prix_vente", "stock_sortie", "subtotal"};
             String inserts[] = {txtfactureajoute.getText(), txtcodeproduit.getText(), txtref.getText(), txtnouveau.getText(), txtstocksortie.getText(),
@@ -741,7 +730,7 @@ public class Cachier extends javax.swing.JFrame {
             db.queryInsert("vente", cols, inserts);
             try {
                 if (!teststock()) {
-                    JOptionPane.showMessageDialog(this, "Stock limiter");
+                    JOptionPane.showMessageDialog(this, "Stock limité");
                 } else {
                     deference();
                     table();
@@ -767,15 +756,38 @@ public class Cachier extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String id = String.valueOf(tbl_facture.getValueAt(tbl_facture.getSelectedRow(), 0));
+        String code_produit = String.valueOf(tbl_facture.getValueAt(tbl_facture.getSelectedRow(), 2));
+        String stocksortie = String.valueOf(tbl_facture.getValueAt(tbl_facture.getSelectedRow(),5));
         if (JOptionPane.showConfirmDialog(this, "Do you really want to delete", "attention",
                 JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
-            System.out.println(db.queryDelete("vente", "id=" + id));
+            System.out.println(db.queryDelete("vente", "id='" + id + "'"));
+             rs = db.querySelectAll("produit", "code_produit='" + code_produit + "'");
+            try {
+                while (rs.next()) {
+                    old = rs.getInt("stock");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Cachier.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            now = old + Integer.parseInt(stocksortie);
+            String nvstock = Integer.toString(now);
+
+            String a = String.valueOf(nvstock);
+            String[] colon = {"stock"};
+            String[] isi = {a};
+            System.out.println(db.queryUpdate("produit", colon, isi, "code_produit='" + code_produit + "'"));
+            actualiser(evt);
         } else {
             return;
         }
+        if (txtfacture.getText().equals("")) {
+            tablef();
+        } else {
         importer();
-        total();
+        total();     
+        }
+       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtcashKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcashKeyReleased
@@ -785,9 +797,25 @@ public class Cachier extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_catrechActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void actualiser(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualiser
         table();
-        tablef();    }//GEN-LAST:event_jButton7ActionPerformed
+        txtcodeproduit.setText("");
+        txtref.setText("");
+        txtrangement.setText("");
+        txtfournisseur.setText("");
+        txtremise.setText("");
+        txtprix.setText("");
+        txtnouveau.setText("");
+        txtstocksortie.setText("");
+        txtfactureajoute.setText("");
+        rp.setText("0");
+        rp1.setText("0");
+        txtfacture.setText("");
+        reste.setText("0");
+        txtcash.setText("");
+        txtrech.setText("");
+    
+        tablef();    }//GEN-LAST:event_actualiser
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         Login l = new Login();
@@ -796,13 +824,33 @@ public class Cachier extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Recu recu = new Recu();
+    /*    Recu recu = new Recu();
         String num_facture=txtfacture.getText();
         
         recu.getTxtrecu().setText("                                  Num facture : "+num_facture);
         recu.setVisible(true);
         dispose();
-
+*/
+      if(!txtfacture.equals("")||!txtcash.equals("")){
+        try {
+            db.connexionDatabase();
+            HashMap param=new HashMap();
+            param.put("numfacture",txtfacture.getText());
+            param.put("totaltopay",rp1.getText());
+            param.put("paied", txtcash.getText());
+            param.put("reste", reste.getText());
+            param.put("labelreste", labelreste.getText());
+            String url="C:\\Users\\ZACKY\\Downloads\\jx-master\\src\\Jasper\\Facture.jrxml";
+            JasperReport jr=JasperCompileManager.compileReport(url);
+            JasperPrint jp=JasperFillManager.fillReport(jr, param,db.connexionDatabase());
+            JasperViewer jv=new JasperViewer(jp,false);
+            jv.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        }else{
+        JOptionPane.showMessageDialog(null, "Please fill both Bill number and payment area");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -850,7 +898,6 @@ public class Cachier extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -859,7 +906,6 @@ public class Cachier extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -874,6 +920,7 @@ public class Cachier extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel label;
+    private javax.swing.JLabel labelreste;
     private java.awt.Label reste;
     private javax.swing.JLabel rp;
     private javax.swing.JLabel rp1;

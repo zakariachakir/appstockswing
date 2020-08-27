@@ -180,6 +180,7 @@ public class Login extends javax.swing.JFrame {
         else {
         Cachier k=new Cachier();
         k.setVisible(true);
+      //  k.actulaiser(evt);
         this.dispose();
                 }
     }//GEN-LAST:event_jButton1ActionPerformed
