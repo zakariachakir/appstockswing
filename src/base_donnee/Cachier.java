@@ -129,8 +129,14 @@ public class Cachier extends javax.swing.JFrame {
     public void payeapres() {
         int a = Integer.parseInt(rp1.getText().trim());
         int b = Integer.parseInt(txtcash.getText().trim());
-        int c = b - a;
-        reste.setText(Integer.toString(c));
+        int c = a - b;
+         if (c >= 0) {
+            reste.setText(Integer.toString(c));
+            labelreste.setText("Reste                             :");
+        } else if (c < 0) {
+            reste.setText(Integer.toString(c * -1));
+            labelreste.setText("Monnaie                          :");
+        } 
     }
  
     public void actulaiser(java.awt.event.ActionEvent evt){
@@ -230,7 +236,7 @@ public class Cachier extends javax.swing.JFrame {
 
         jLabel8.setText("Search By Category:");
 
-        catrech.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "code_produit", "reference", "deseignation", "rangement", "fournisseur", "remise ", "prix", "stock" }));
+        catrech.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "code_produit", "reference", "deseignation", "rangement", "fournisseur", "remise", "prix", "stock" }));
         catrech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 catrechActionPerformed(evt);
@@ -246,7 +252,7 @@ public class Cachier extends javax.swing.JFrame {
 
         jLabel3.setText("code_produit :");
 
-        jLabel4.setText("reference :");
+        jLabel4.setText("réference :");
 
         jLabel5.setText("rangement:");
 
@@ -475,6 +481,7 @@ public class Cachier extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tbl_facture.setToolTipText("");
         jScrollPane2.setViewportView(tbl_facture);
 
         jLabel13.setText("Total                             :");
@@ -483,13 +490,18 @@ public class Cachier extends javax.swing.JFrame {
 
         jLabel16.setText("Montant à payer           :");
 
+        txtcash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcashActionPerformed(evt);
+            }
+        });
         txtcash.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtcashKeyReleased(evt);
             }
         });
 
-        labelreste.setText(" Reste                            :");
+        labelreste.setText("Reste                             :");
 
         jButton4.setText("Imprimer Facture");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -852,6 +864,10 @@ public class Cachier extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Please fill both Bill number and payment area");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtcashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcashActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcashActionPerformed
 
     /**
      * @param args the command line arguments

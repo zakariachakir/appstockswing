@@ -38,7 +38,7 @@ public class Principale extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setText("Welcome back");
+        jLabel1.setText("Bienvenue");
 
         jButton1.setText("Retour");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -48,9 +48,9 @@ public class Principale extends javax.swing.JFrame {
         });
 
         jLabel2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel2.setText("Please chose one of the option  below");
+        jLabel2.setText("Merci de choisir l'un des options suivants :");
 
-        jButton2.setText("Product");
+        jButton2.setText("Produits");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
